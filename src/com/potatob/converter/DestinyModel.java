@@ -62,15 +62,18 @@ public class DestinyModel {
 
     // Fully parses a model's components
     private void parse(byte[] data) {
+        // The file uses little endian format:
         long magicNumber = ((data[3] & 0xffL) << 24)
                           | ((data[2] & 0xffL) << 16)
                           | ((data[1] & 0xffL) << 8)
                           | (data[0] & 0xffL);
-        // Destiny db puts a magic number at the top of their geom files
+        // There is a magic number at the top of their geom files
         // it's basically a version number
         if (magicNumber != 572728357L) {
             System.err.println("Invalid magic number: " + magicNumber);
             // do nothing different for now
+            
+            // return;
         }
 
         try {
